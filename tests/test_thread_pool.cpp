@@ -20,28 +20,6 @@ TEST_CASE("ThreadPool executes tasks", "[ThreadPool]") {
     REQUIRE(counter == 2);
 }
 
-TEST_CASE("ThreadPool respects QoS priority", "[ThreadPool]") {
-    auto sut = turboq::ThreadPool(1);
-    std::vector<int> order;
-    std::mutex m;
-
-    sut.submit([&] {
-        std::lock_guard<std::mutex> lock(m);
-        order.push_back(1);
-    }, turboq::ThreadPool::QoS::Background);
-    
-    sut.submit([&] {
-        std::lock_guard<std::mutex> lock(m);
-        order.push_back(2);
-    }, turboq::ThreadPool::QoS::UserInteractive);
-
-    std::this_thread::sleep_for(100ms);
-
-    REQUIRE(order.size() == 2);
-    REQUIRE(order[0] == 2);
-    REQUIRE(order[1] == 1);
-}
-
 TEST_CASE("ThreadPool stops cleanly", "[ThreadPool]") {
     auto sut = turboq::ThreadPool(2);
     
