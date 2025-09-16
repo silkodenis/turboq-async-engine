@@ -1,0 +1,7 @@
+#pragma once
+
+#define TURBOQ_VERSION_MAJOR 1
+#define TURBOQ_VERSION_MINOR 0
+#define TURBOQ_VERSION_PATCH 0
+
+#define TURBOQ_VERSION_STRING "1.0.0"
