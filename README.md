@@ -1,4 +1,4 @@
-# turboq
+# TurboQ
 
 Asynchronous task and timer queue library for C++.
 
