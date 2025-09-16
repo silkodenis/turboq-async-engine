@@ -1,7 +1,7 @@
 #pragma once
 
-#include "thread_pool.hpp"
-#include "timer.hpp"
+#include <TurboQ/thread_pool.hpp>
+#include <TurboQ/timer.hpp>
 
 #include <queue>
 #include <mutex>

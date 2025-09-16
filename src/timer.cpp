@@ -1,5 +1,5 @@
-#include "timer.hpp"
-#include "queue.hpp"
+#include <TurboQ/timer.hpp>
+#include <TurboQ/queue.hpp>
 
 namespace turboq {
 

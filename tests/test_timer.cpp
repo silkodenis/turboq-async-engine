@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
-#include "turboq.hpp"
+#include <TurboQ/timer.hpp>
+#include <TurboQ/queue.hpp>
 
 #include <atomic>
 #include <chrono>
