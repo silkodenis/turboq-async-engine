@@ -1,8 +1,10 @@
+[![License](https://img.shields.io/github/license/silkodenis/turboq-async-engine.svg)](https://github.com/silkodenis/turboq-async-engine/blob/main/LICENSE)
+
 | Platform | Status |
 |----------|--------|
-| Linux    | ![Linux](https://github.com/silkodenis/cpp-turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=linux) |
-| macOS    | ![macOS](https://github.com/silkodenis/cpp-turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=macos) |
-| Windows  | ![Windows](https://github.com/silkodenis/cpp-turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=windows) |
+| Linux    | ![Linux](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=linux) |
+| macOS    | ![macOS](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=macos) |
+| Windows  | ![Windows](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=windows) |
 
 # TurboQ
 
@@ -19,7 +21,7 @@ Asynchronous task and timer queue library for C++.
 
 ```bash
 git clone https://github.com/silkodenis/turboq-async-engine.git
-cd cpp-turboq-async-engine
+cd turboq-async-engine
 git submodule update --init --recursive
 ```
 
@@ -27,7 +29,7 @@ git submodule update --init --recursive
 
 ```bash
 mkdir build && cd build
-cmake .. -DBUILD_TESTS=ON -DBUILD_SHARED=ON
+cmake .. -DBUILD_TESTS=ON -DBUILD_SHARED=OFF 
 cmake --build . --parallel
 ctest -V
 ```
