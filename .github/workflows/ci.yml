@@ -47,8 +47,8 @@ jobs:
         with:
           submodules: true
       - name: Configure
-        run: cmake -S . -B build -DBUILD_TESTS=ON -DBUILD_SHARED=ON
-      - name: Build
+        run: cmake -S . -B build -DBUILD_TESTS=ON -DBUILD_SHARED=ON -DCMAKE_BUILD_TYPE=Release
+      - name: Build (Release)
         run: cmake --build build --parallel --config Release
-      - name: Run tests
-        run: ctest --test-dir build -V -C Release≈
+      - name: Run tests (Release)
+        run: ctest --test-dir build -V -C Release
