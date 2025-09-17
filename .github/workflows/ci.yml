@@ -49,7 +49,7 @@ jobs:
       - name: Install Ninja
         run: choco install ninja
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DBUILD_TESTS=ON -DBUILD_SHARED=ON
+        run: cmake -S . -B build -G Ninja -DBUILD_TESTS=ON -DBUILD_SHARED=OFF
       - name: Build
         run: cmake --build build --parallel
       - name: Run tests
