@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/github/license/silkodenis/turboq-async-engine.svg)](https://github.com/silkodenis/turboq-async-engine/blob/main/LICENSE)
 
-| Platform | Status |
+| Platform | Build & Tests |
 |----------|--------|
 | Linux    | ![Linux](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=linux) |
 | macOS    | ![macOS](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=macos) |
