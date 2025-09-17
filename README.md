@@ -33,7 +33,7 @@ The following options can be set when configuring the project:
 - `BUILD_TESTS` (default: `ON`)
 - `BUILD_SHARED` (default: `OFF`)
 
-## Using TurboQ as a Git submodule
+## Using as a Git submodule
 
 To include **TurboQ** in your project as a Git submodule:
 
@@ -52,7 +52,7 @@ add_subdirectory(external/TurboQ)
 target_link_libraries(MyApp PRIVATE turboq)
 ```
 
-## Using TurboQ with CMake FetchContent
+## Using with CMake FetchContent
 
 You can fetch the library directly in your CMakeLists.txt:
 
