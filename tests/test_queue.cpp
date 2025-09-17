@@ -28,7 +28,7 @@ TEST_CASE("Queue sync executes task immediately", "[Queue]") {
     sut.sync([&] { counter++; });
     sut.sync([&] { counter++; });
 
-    REQUIRE(test_helpers::wait_until([&]{ return counter.load() == 2; }));
+    REQUIRE(counter.load() == 2);
 }
 
 TEST_CASE("Queue Serial executes tasks in order", "[Queue]") {
