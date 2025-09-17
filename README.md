@@ -8,7 +8,13 @@
 
 # TurboQ
 
-Asynchronous task and timer queue library for C++.
+**TurboQ** is a lightweight C++ library for asynchronous task and timer queues, built around a **thread-pool** with a fixed number of system threads, avoiding the overhead of creating new threads and context switches. This design ensures efficient execution of concurrent and serial tasks. The library is inspired by Apple’s Grand Central Dispatch (GCD) and is implemented entirely using standard C++ primitives: `std::thread`, `std::mutex`, and `std::condition_variable`.
+
+The library provides:
+- **ThreadPool** with task priority (QoS) support for parallel execution.
+- **Serial and Concurrent queues** for ordered or asynchronous task execution.
+- **Timers** for delayed or scheduled task execution.
+- Easy integration via **CMake** and optional Git submodule.
 
 ## Requirements
 - **Git** (for submodules)
