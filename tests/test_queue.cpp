@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <TurboQ/queue.hpp>
+#include "test_helpers.hpp"
 
 #include <atomic>
 #include <vector>
@@ -7,6 +8,7 @@
 #include <thread>
 
 using namespace turboq;
+using namespace test_helpers;
 using namespace std::chrono_literals;
 
 TEST_CASE("Queue async executes tasks", "[Queue]") {
@@ -16,8 +18,7 @@ TEST_CASE("Queue async executes tasks", "[Queue]") {
     sut.async([&] { counter++; });
     sut.async([&] { counter++; });
 
-    std::this_thread::sleep_for(100ms);
-    REQUIRE(counter == 2);
+    REQUIRE(wait_until([&]{ return counter == 2; }));
 }
 
 TEST_CASE("Queue sync executes task immediately", "[Queue]") {
@@ -42,8 +43,7 @@ TEST_CASE("Queue Serial executes tasks in order", "[Queue]") {
         });
     }
 
-    std::this_thread::sleep_for(200ms);
-    REQUIRE(order.size() == 5);
+    REQUIRE(wait_until([&]{ return order.size() == 5; }));
     for (int i = 0; i < 5; i++) {
         REQUIRE(order[i] == i);
     }
@@ -54,14 +54,9 @@ TEST_CASE("Queue async_after executes after delay", "[Queue]") {
     std::atomic<bool> executed{false};
 
     auto start = std::chrono::steady_clock::now();
-    sut.async_after(100ms, [&] {
-        executed = true;
-    });
+    sut.async_after(100ms, [&] { executed = true; });
 
-    while (!executed) {
-        std::this_thread::sleep_for(10ms);
-    }
-
+    REQUIRE(wait_until([&]{ return executed.load(); }));
     auto duration = std::chrono::steady_clock::now() - start;
     REQUIRE(duration >= 90ms);
 }
@@ -73,10 +68,7 @@ TEST_CASE("Queue async_at executes at specific time", "[Queue]") {
     auto when = std::chrono::steady_clock::now() + 100ms;
     sut.async_at(when, [&] { executed = true; });
 
-    while (!executed) {
-        std::this_thread::sleep_for(10ms);
-    }
-
+    REQUIRE(wait_until([&]{ return executed.load(); }));
     auto now = std::chrono::steady_clock::now();
     REQUIRE(now >= when);
 }
@@ -88,6 +80,5 @@ TEST_CASE("Queue global concurrent queues work", "[Queue]") {
     sut.async([&] { counter++; });
     sut.async([&] { counter++; });
 
-    std::this_thread::sleep_for(100ms);
-    REQUIRE(counter == 2);
+    REQUIRE(wait_until([&]{ return counter == 2; }));
 }
