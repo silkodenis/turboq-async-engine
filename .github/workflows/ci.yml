@@ -38,7 +38,7 @@ jobs:
         run: cmake --build build --parallel
       - name: Run tests
         run: ctest --test-dir build -V
-
+        
   windows:
     name: Build on Windows
     runs-on: windows-latest
@@ -46,9 +46,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
+
       - name: Configure
-        run: cmake -S . -B build -DBUILD_TESTS=ON -DBUILD_SHARED=ON -DCMAKE_BUILD_TYPE=Release
-      - name: Build (Release)
-        run: cmake --build build --parallel --config Release
-      - name: Run tests (Release)
-        run: ctest --test-dir build -V -C Release
+        run: cmake -S . -B build -DBUILD_TESTS=ON -DBUILD_SHARED=ON
+
+      - name: Build library and tests
+        run: cmake --build build --config Release --parallel
+
+      - name: Run tests
+        run: ctest --test-dir build --config Release -V
