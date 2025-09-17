@@ -1,3 +1,9 @@
+| Platform | Status |
+|----------|--------|
+| Linux    | ![Linux](https://github.com/silkodenis/cpp-turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=linux) |
+| macOS    | ![macOS](https://github.com/silkodenis/cpp-turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=macos) |
+| Windows  | ![Windows](https://github.com/silkodenis/cpp-turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=windows) |
+
 # TurboQ
 
 Asynchronous task and timer queue library for C++.
