@@ -6,7 +6,6 @@ Asynchronous task and timer queue library for C++.
 - **Git** (for submodules)
 - **CMake** ≥ 3.20
 - **C++17** compatible compiler (GCC, Clang, MSVC)  
-- (Optional) **Ninja** build system for faster builds  
 
 ## Build instructions
 
