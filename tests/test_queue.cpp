@@ -18,7 +18,7 @@ TEST_CASE("Queue async executes tasks", "[Queue]") {
     sut.async([&] { counter++; });
     sut.async([&] { counter++; });
 
-    REQUIRE(wait_until([&]{ return counter == 2; }));
+    REQUIRE(wait_until([&]{ return counter.load() == 2; }));
 }
 
 TEST_CASE("Queue sync executes task immediately", "[Queue]") {
@@ -28,7 +28,7 @@ TEST_CASE("Queue sync executes task immediately", "[Queue]") {
     sut.sync([&] { counter++; });
     sut.sync([&] { counter++; });
 
-    REQUIRE(counter == 2);
+    REQUIRE(counter.load() == 2);
 }
 
 TEST_CASE("Queue Serial executes tasks in order", "[Queue]") {
@@ -80,5 +80,5 @@ TEST_CASE("Queue global concurrent queues work", "[Queue]") {
     sut.async([&] { counter++; });
     sut.async([&] { counter++; });
 
-    REQUIRE(wait_until([&]{ return counter == 2; }));
+    REQUIRE(wait_until([&]{ return counter.load() == 2; }));
 }
