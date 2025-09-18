@@ -54,8 +54,8 @@ private:
 
     std::mutex mutex_;
     std::condition_variable cv_;
-    bool stop_ = false;
     std::thread worker_;
+    bool stop_;
 
     Timer();
     ~Timer();

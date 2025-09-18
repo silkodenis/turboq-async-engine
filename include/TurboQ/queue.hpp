@@ -54,7 +54,7 @@ public:
      * @param type Type of execution (Serial or Concurrent). Default is Serial.
      * @param qos Quality of Service for thread pool execution. Default is Utility.
      */
-    Queue(std::string name,
+    Queue(std::string name = generate_name(),
           Type type = Type::Serial,
           ThreadPool::QoS qos = ThreadPool::QoS::Utility);
 
@@ -100,6 +100,11 @@ public:
     void sync(Task task);
 
 private:
+    static std::string generate_name() {
+        static std::atomic<int> counter{0};
+        return "queue_" + std::to_string(counter++);
+    }
+    
     void submit_next();
 
     std::string name_;
@@ -108,7 +113,7 @@ private:
 
     std::mutex mutex_;
     std::queue<Task> tasks_;
-    bool isRunning_ = false;
+    bool is_running_;
 
     std::thread::id running_thread_id_;
 };

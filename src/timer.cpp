@@ -34,7 +34,7 @@ void Timer::schedule(Task task,
     cv_.notify_one();
 }
 
-Timer::Timer() {
+Timer::Timer() : stop_(false) {
     worker_ = std::thread([this] { run(); });
 }
 

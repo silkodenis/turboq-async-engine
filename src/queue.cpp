@@ -22,7 +22,7 @@ namespace turboq {
 Queue::Queue(std::string name,
              Type type,
              ThreadPool::QoS qos)
-    : name_(std::move(name)), type_(type), qos_(qos) {}
+    : name_(std::move(name)), type_(type), qos_(qos), is_running_(false) {}
 
 Queue& Queue::global(ThreadPool::QoS qos) {
     static Queue ui("global_ui", Queue::Type::Concurrent, ThreadPool::QoS::UserInteractive);
@@ -45,8 +45,8 @@ void Queue::async(Task task) {
     } else {
         std::unique_lock<std::mutex> lock(mutex_);
         tasks_.push(std::move(task));
-        if (!isRunning_) {
-            isRunning_ = true;
+        if (!is_running_) {
+            is_running_ = true;
             submit_next();
         }
     }
@@ -95,7 +95,7 @@ void Queue::sync(Task task) {
 
 void Queue::submit_next() {
     if (tasks_.empty()) {
-        isRunning_ = false;
+        is_running_ = false;
         return;
     }
 
