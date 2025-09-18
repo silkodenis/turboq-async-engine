@@ -1,10 +1,7 @@
 [![License](https://img.shields.io/github/license/silkodenis/turboq-async-engine.svg)](https://github.com/silkodenis/turboq-async-engine/blob/main/LICENSE)
-
-| Platform | Build & Tests |
-|----------|---------------|
-| Linux    | ![Linux](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-linux.yml/badge.svg?branch=main) |
-| macOS    | ![macOS](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-macos.yml/badge.svg?branch=main) |
-| Windows  | ![Windows](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-windows.yml/badge.svg?branch=main) |
+![Linux](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-linux.yml/badge.svg?branch=main)
+![macOS](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-macos.yml/badge.svg?branch=main)
+![Windows](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-windows.yml/badge.svg?branch=main)
 
 # TurboQ
 
@@ -17,10 +14,9 @@ The library provides:
 - Easy integration via **CMake** and optional Git submodule.
 
 ## Requirements
-- **Git** (for submodules)
+- **Git** 
 - **CMake** ≥ 3.20
 - **C++17** compatible compiler (GCC, Clang, MSVC)  
-
 
 ## Using with CMake FetchContent
 
