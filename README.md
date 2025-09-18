@@ -62,6 +62,8 @@ target_link_libraries(MyApp PRIVATE turboq)
 ```bash
 git clone https://github.com/silkodenis/turboq-async-engine.git
 cd turboq-async-engine
+
+#  If you plan to build and run tests (-DBUILD_TESTS=ON), initialize submodules as well:
 git submodule update --init --recursive
 ```
 
@@ -69,17 +71,19 @@ git submodule update --init --recursive
 
 ```bash
 mkdir build && cd build
-cmake .. -DBUILD_TESTS=ON -DBUILD_SHARED=OFF 
+cmake .. -DBUILD_TESTS=ON -DBUILD_SHARED=OFF  
 cmake --build . --parallel
-ctest -V
+
+# optional, only if BUILD_TESTS=ON
+ctest -V   
 ```
 
 #### Configure options:
 
 The following options can be set when configuring the project:
 
-- `BUILD_TESTS` (default: `ON`)
-- `BUILD_SHARED` (default: `OFF`)
+- `BUILD_TESTS` (default: `ON`) - enables building and running tests (requires Catch2 submodule)
+- `BUILD_SHARED` (default: `OFF`) - build library as shared (ON) or static (OFF)
 
 ## Example
 
