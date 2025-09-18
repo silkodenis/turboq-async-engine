@@ -61,48 +61,6 @@ void Queue::async_after(std::chrono::milliseconds delay, Task task) {
     Timer::instance().schedule(std::move(task), when, *this);
 }
 
-/*
-void Queue::sync(Task task) {
-    std::mutex m;
-    std::condition_variable cv;
-    bool done = false;
-
-    auto wrapper = [&] {
-        try {
-            task();
-        } catch (...) {
-            std::cerr << "Queue[" << name_ << "] exception in sync\n";
-        }
-        {
-            std::lock_guard<std::mutex> lock(m);
-            done = true;
-        }
-        cv.notify_one();
-    };
-
-    if (type_ == Type::Concurrent) {
-        ThreadPool::instance().submit(wrapper, qos_);
-    } else {
-        if (std::this_thread::get_id() == running_thread_id_) {
-            assert(false && "Queue::sync called recursively on the same serial queue!");
-        }
-
-        {
-            std::unique_lock<std::mutex> lock(mutex_);
-            tasks_.push(wrapper);
-
-            if (!isRunning_) {
-                isRunning_ = true;
-                submit_next();
-            }
-        }
-    }
-
-    std::unique_lock<std::mutex> lock(m);
-    cv.wait(lock, [&] { return done; });
-}
- */
-
 void Queue::sync(Task task) {
     if (type_ == Type::Concurrent) {
         std::mutex m;
