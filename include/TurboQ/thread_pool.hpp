@@ -26,28 +26,59 @@
 
 namespace turboq {
 
+/**
+ * @brief A thread pool that executes tasks with different priorities (QoS).
+ *
+ * ThreadPool allows submitting tasks for concurrent execution using a pool of worker threads.
+ * Tasks can be prioritized according to Quality of Service (QoS).
+ */
 class ThreadPool {
 public:
+    /**
+     * @brief Defines task priority levels (Quality of Service).
+     */
     enum class QoS {
-        UserInteractive = 3,
-        UserInitiated   = 2,
-        Utility         = 1,
-        Background      = 0   
+        UserInteractive = 3, ///< Highest priority, e.g., UI tasks.
+        UserInitiated   = 2, ///< High priority, tasks initiated by the user.
+        Utility         = 1, ///< Medium priority, background computations.
+        Background      = 0  ///< Lowest priority, long-running background tasks.
     };
 
-    using Task = std::function<void()>;
+    using Task = std::function<void()>; ///< Represents a task to be executed.
 
+    /**
+     * @brief Returns a singleton instance of ThreadPool.
+     *
+     * @param threads Number of worker threads. Default is the number of hardware cores.
+     * @return Reference to the ThreadPool instance.
+     */
     static ThreadPool& instance(size_t threads = std::thread::hardware_concurrency());
+
+    /**
+     * @brief Constructs a ThreadPool with a specified number of threads.
+     *
+     * @param threads Number of worker threads. Default is the number of hardware cores.
+     */
     explicit ThreadPool(size_t threads = std::thread::hardware_concurrency());
+
+    /**
+     * @brief Destroys the ThreadPool and joins all worker threads.
+     */
     ~ThreadPool();
 
+    /**
+     * @brief Submits a task to the thread pool for execution.
+     *
+     * @param task The task to execute.
+     * @param qos Quality of Service for task priority. Default is Utility.
+     */
     void submit(Task task, QoS qos = QoS::Utility);
 
 private:
     struct PrioritizedTask {
         Task task;
         QoS qos;
-
+        
         PrioritizedTask(Task t, QoS q);
 
         bool operator<(const PrioritizedTask& other) const {
@@ -64,4 +95,4 @@ private:
     void worker_loop();
 };
 
-} 
+} // namespace turboq

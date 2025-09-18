@@ -27,24 +27,76 @@
 #include <thread>
 #include <iostream>
 
-
 namespace turboq {
 
+/**
+ * @brief Represents a task queue that can execute tasks serially or concurrently.
+ *
+ * Queue allows scheduling tasks asynchronously, synchronously, or at a specific time.
+ * It uses a ThreadPool internally to execute tasks according to the specified QoS.
+ */
 class Queue {
 public:
     using Task = std::function<void()>;
 
-    enum class Type { Serial, Concurrent };
+    /**
+     * @brief Defines the type of execution for the queue.
+     */
+    enum class Type {
+        Serial,     ///< Tasks are executed one by one in order.
+        Concurrent  ///< Tasks may be executed concurrently.
+    };
 
+    /**
+     * @brief Constructs a new Queue.
+     *
+     * @param name Name of the queue, useful for debugging.
+     * @param type Type of execution (Serial or Concurrent). Default is Serial.
+     * @param qos Quality of Service for thread pool execution. Default is Utility.
+     */
     Queue(std::string name,
           Type type = Type::Serial,
           ThreadPool::QoS qos = ThreadPool::QoS::Utility);
 
+    /**
+     * @brief Returns a global shared queue with the specified QoS.
+     *
+     * @param qos Quality of Service for the global queue. Default is Utility.
+     * @return Reference to a global Queue instance.
+     */
     static Queue& global(ThreadPool::QoS qos = ThreadPool::QoS::Utility);
 
+    /**
+     * @brief Submits a task for asynchronous execution.
+     *
+     * @param task The task to execute.
+     */
     void async(Task task);
+
+    /**
+     * @brief Schedules a task to execute at a specific time point.
+     *
+     * @param when Time point when the task should run.
+     * @param task The task to execute.
+     */
     void async_at(std::chrono::steady_clock::time_point when, Task task);
+
+    /**
+     * @brief Schedules a task to execute after a specified delay.
+     *
+     * @param delay Duration to wait before executing the task.
+     * @param task The task to execute.
+     */
     void async_after(std::chrono::milliseconds delay, Task task);
+
+    /**
+     * @brief Executes a task synchronously.
+     *
+     * If called from the queue’s thread, the task is executed immediately.
+     * Otherwise, it waits until the task completes.
+     *
+     * @param task The task to execute.
+     */
     void sync(Task task);
 
 private:
@@ -61,9 +113,17 @@ private:
     std::thread::id running_thread_id_;
 };
 
+/**
+ * @brief Returns a global queue with the specified QoS.
+ *
+ * Convenience function wrapping Queue::global().
+ *
+ * @param qos Quality of Service for the global queue. Default is Utility.
+ * @return Reference to the global Queue instance.
+ */
 inline Queue& global(ThreadPool::QoS qos = ThreadPool::QoS::Utility) {
     return Queue::global(qos);
 }
 
-} 
+} // namespace turboq
 
