@@ -22,6 +22,7 @@
 #include <queue>
 #include <mutex>
 #include <string>
+#include <atomic>
 #include <functional>
 #include <chrono>
 #include <thread>
