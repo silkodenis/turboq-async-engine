@@ -1,10 +1,10 @@
 [![License](https://img.shields.io/github/license/silkodenis/turboq-async-engine.svg)](https://github.com/silkodenis/turboq-async-engine/blob/main/LICENSE)
 
 | Platform | Build & Tests |
-|----------|--------|
-| Linux    | ![Linux](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=linux) |
-| macOS    | ![macOS](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=macos) |
-| Windows  | ![Windows](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci.yml/badge.svg?branch=main&job=windows) |
+|----------|---------------|
+| Linux    | ![Linux](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-linux.yml/badge.svg?branch=main) |
+| macOS    | ![macOS](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-macos.yml/badge.svg?branch=main) |
+| Windows  | ![Windows](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-windows.yml/badge.svg?branch=main) |
 
 # TurboQ
 

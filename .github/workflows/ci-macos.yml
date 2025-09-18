@@ -1,0 +1,23 @@
+name: macOS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install dependencies
+        run: brew install cmake
+      - name: Configure
+        run: cmake -S . -B build -DBUILD_TESTS=ON -DBUILD_SHARED=ON
+      - name: Build
+        run: cmake --build build --parallel
+      - name: Run tests
+        run: ctest --test-dir build -V
