@@ -90,6 +90,7 @@ The following options can be set when configuring the project:
 #include <chrono>
 #include <mutex>
 
+using namespace std::chrono_literals;
 using namespace turboq;
 
 int main() {
@@ -101,10 +102,10 @@ int main() {
     for (int i = 1; i <= 5; i++) {
         concurrent.async([i, &cout_mutex] {
             std::lock_guard<std::mutex> lock(cout_mutex);
-            std::cout << "Concurrent task " << i 
-                      << " running on thread " 
+            std::cout << "Concurrent task " << i
+                      << " running on thread "
                       << std::this_thread::get_id() << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            std::this_thread::sleep_for(200ms);
         });
     }
 
@@ -122,7 +123,7 @@ int main() {
     });
 
     // Delayed task (executes after 1 second)
-    concurrent.async_after(std::chrono::seconds(1), [&cout_mutex] {
+    concurrent.async_after(1s, [&cout_mutex] {
         std::lock_guard<std::mutex> lock(cout_mutex);
         std::cout << "Delayed task executed after 1s" << std::endl;
     });
@@ -134,7 +135,7 @@ int main() {
     });
 
     // Wait a bit to let all tasks complete
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+    std::this_thread::sleep_for(3s);
 }
 ```
 
