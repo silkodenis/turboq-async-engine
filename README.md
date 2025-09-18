@@ -81,6 +81,63 @@ The following options can be set when configuring the project:
 - `BUILD_TESTS` (default: `ON`)
 - `BUILD_SHARED` (default: `OFF`)
 
+## Example
+
+```cpp
+#include <TurboQ/turboq.hpp>
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <mutex>
+
+using namespace turboq;
+
+int main() {
+    std::mutex cout_mutex;
+
+    // Concurrent queue (tasks may run in parallel)
+    Queue concurrent("concurrent", Queue::Type::Concurrent, ThreadPool::QoS::Utility);
+
+    for (int i = 1; i <= 5; i++) {
+        concurrent.async([i, &cout_mutex] {
+            std::lock_guard<std::mutex> lock(cout_mutex);
+            std::cout << "Concurrent task " << i 
+                      << " running on thread " 
+                      << std::this_thread::get_id() << std::endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        });
+    }
+
+    // Serial queue (tasks run one after another)
+    Queue serial("serial", Queue::Type::Serial);
+
+    serial.async([&cout_mutex] {
+        std::lock_guard<std::mutex> lock(cout_mutex);
+        std::cout << "Serial task 1" << std::endl;
+    });
+
+    serial.async([&cout_mutex] {
+        std::lock_guard<std::mutex> lock(cout_mutex);
+        std::cout << "Serial task 2" << std::endl;
+    });
+
+    // Delayed task (executes after 1 second)
+    concurrent.async_after(std::chrono::seconds(1), [&cout_mutex] {
+        std::lock_guard<std::mutex> lock(cout_mutex);
+        std::cout << "Delayed task executed after 1s" << std::endl;
+    });
+
+    // Synchronous task (blocks the current thread until finished)
+    serial.sync([&cout_mutex] {
+        std::lock_guard<std::mutex> lock(cout_mutex);
+        std::cout << "Synchronous task finished" << std::endl;
+    });
+
+    // Wait a bit to let all tasks complete
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+}
+```
+
 ## License
 
 This project is licensed under the [Apache License 2.0](https://github.com/silkodenis/turboq-async-engine/blob/main/LICENSE).
