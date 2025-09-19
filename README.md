@@ -1,7 +1,7 @@
-[![License](https://img.shields.io/github/license/silkodenis/turboq-async-engine.svg)](https://github.com/silkodenis/turboq-async-engine/blob/main/LICENSE)
-![Linux](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-linux.yml/badge.svg?branch=main)
-![macOS](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-macos.yml/badge.svg?branch=main)
-![Windows](https://github.com/silkodenis/turboq-async-engine/actions/workflows/ci-windows.yml/badge.svg?branch=main)
+[![License](https://img.shields.io/github/license/silkodenis/turboq-cpp-async-engine.svg)](https://github.com/silkodenis/turboq-cpp-async-engine/blob/main/LICENSE)
+![Linux](https://github.com/silkodenis/turboq-cpp-async-engine/actions/workflows/ci-linux.yml/badge.svg?branch=main)
+![macOS](https://github.com/silkodenis/turboq-cpp-async-engine/actions/workflows/ci-macos.yml/badge.svg?branch=main)
+![Windows](https://github.com/silkodenis/turboq-cpp-async-engine/actions/workflows/ci-windows.yml/badge.svg?branch=main)
 
 # TurboQ
 
@@ -27,7 +27,7 @@ include(FetchContent)
 
 FetchContent_Declare(
   TurboQ
-  GIT_REPOSITORY https://github.com/silkodenis/turboq-async-engine.git
+  GIT_REPOSITORY https://github.com/silkodenis/turboq-cpp-async-engine.git
   GIT_TAG        main
 )
 
@@ -41,7 +41,7 @@ target_link_libraries(MyApp PRIVATE turboq)
 To include **TurboQ** in your project as a Git submodule:
 
 ```bash
-git submodule add https://github.com/silkodenis/turboq-async-engine.git external/TurboQ
+git submodule add https://github.com/silkodenis/turboq-cpp-async-engine.git external/TurboQ
 git submodule update --init --recursive
 ```
 
@@ -60,8 +60,8 @@ target_link_libraries(MyApp PRIVATE turboq)
 #### 1. Clone repository and initialize submodules
 
 ```bash
-git clone https://github.com/silkodenis/turboq-async-engine.git
-cd turboq-async-engine
+git clone https://github.com/silkodenis/turboq-cpp-async-engine.git
+cd turboq-cpp-async-engine
 
 #  If you plan to build and run tests (-DBUILD_TESTS=ON), initialize submodules as well:
 git submodule update --init --recursive
@@ -145,4 +145,4 @@ int main() {
 
 ## License
 
-This project is licensed under the [Apache License 2.0](https://github.com/silkodenis/turboq-async-engine/blob/main/LICENSE).
+This project is licensed under the [Apache License 2.0](https://github.com/silkodenis/turboq-cpp-async-engine/blob/main/LICENSE).
