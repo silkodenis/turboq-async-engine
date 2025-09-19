@@ -35,6 +35,9 @@ namespace turboq {
  *
  * Queue allows scheduling tasks asynchronously, synchronously, or at a specific time.
  * It uses a ThreadPool internally to execute tasks according to the specified QoS.
+ *
+ * @note A Queue instance must remain alive as long as there are
+ *       delayed or scheduled tasks associated with it.
  */
 class Queue {
 public:
@@ -77,6 +80,10 @@ public:
     /**
      * @brief Schedules a task to execute at a specific time point.
      *
+     * @warning The queue object must outlive the scheduled task.
+     * If the queue is destroyed before the scheduled time,
+     * behavior is undefined (likely crash).
+     *
      * @param when Time point when the task should run.
      * @param task The task to execute.
      */
@@ -84,6 +91,10 @@ public:
 
     /**
      * @brief Schedules a task to execute after a specified delay.
+     *
+     * @warning The queue object must outlive the scheduled task.
+     * If the queue is destroyed before the task is executed,
+     * behavior is undefined (likely crash).
      *
      * @param delay Duration to wait before executing the task.
      * @param task The task to execute.
